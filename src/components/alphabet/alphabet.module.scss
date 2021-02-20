@@ -1,0 +1,25 @@
+.alphabet {
+  position: absolute;
+  left: 10px;
+  bottom: 60px;
+  display: flex;
+  justify-content: space-between;
+}
+.box {
+  display: flex;
+  padding: 5px;
+  margin: 0;
+  justify-content: space-between;
+  max-width: 200px;
+}
+.words {
+  display: flex;
+  flex-wrap: wrap;
+  max-width: 200px;
+}
+
+.word {
+  padding: 3px;
+  margin: 0;
+  cursor: pointer;
+}

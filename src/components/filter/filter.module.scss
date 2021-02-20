@@ -1,0 +1,19 @@
+.filter {
+  position: fixed;
+  left: 10px;
+  top: 50vh;
+  display: flex;
+  justify-content: space-between;
+}
+
+.lang {
+  cursor: pointer;
+  font-weight: 700;
+}
+
+.word {
+  padding: 2px;
+  margin: 0;
+  font-size: 10px;
+  color: gray;
+}
