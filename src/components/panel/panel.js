@@ -2,10 +2,40 @@ import React from "react";
 import s from "./panel.module.scss";
 import { data } from "../data/constants";
 import { cutDescription } from "../../utils/utils";
+import likeIcon from "../../vendor/images/like.svg";
+import Note from "../note/note";
 
 export default function Panel(props) {
   const data = props.panelData;
   const note = props.note;
+
+  const [isLiked, setIsLiked] = React.useState(false);
+
+  function toggleLike() {
+    setIsLiked(!isLiked);
+  }
+
+  function addVideo(link) {
+    console.log(link);
+    if (!link.includes("youtube")) {
+      return (
+        <a className={s["full-note-link"]} href="#">
+          {link}
+        </a>
+      );
+    } else {
+      return (
+        <iframe
+          width="400"
+          height="225"
+          src={`https://www.youtube.com/embed/${link.split("v=")[1]}`}
+          frameborder="0"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+          allowfullscreen
+        ></iframe>
+      );
+    }
+  }
 
   return (
     <div className={s.panel} style={props.panelWidth}>
@@ -18,26 +48,16 @@ export default function Panel(props) {
           <div className={s.notes}>
             {data.notes
               ? data.notes.map((note) => {
-                  return (
-                    <div
-                      className={s.note}
-                      onClick={() => props.onShowNote(note, "1000px")}
-                    >
-                      <h4 className={s.title}>{note.note}</h4>
-                      <p className={s.description}>
-                        {cutDescription(note.description, 100)}
-                      </p>
-                    </div>
-                  );
+                  return <Note note={note} onShowNote={props.onShowNote} />;
                 })
               : 0}
           </div>
         </div>
         <div className={s["full-note"]}>
           <h4 className={s["full-note-title"]}>{note.note}</h4>
-          <a className={s["full-note-link"]} href="#">
-            {note.link}
-          </a>
+          <div className={s["link-box"]}>
+            {note.link ? addVideo(note.link) : 0}
+          </div>
           <p className={s["full-note-description"]}>{note.description}</p>
         </div>
         <button className={s["add-button"]}>+</button>

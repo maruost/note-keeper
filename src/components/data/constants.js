@@ -73,7 +73,7 @@ const data = [
         notes: [
           {
             note: "Алгоритмичип",
-            link: "eferfer.com",
+            link: "https://www.youtube.com/watch?v=G22JNY5jBOw",
             description: "как сортировать",
           },
           {

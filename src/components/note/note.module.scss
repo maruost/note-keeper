@@ -1,0 +1,43 @@
+.note {
+  margin-bottom: 20px;
+  width: 300px;
+  cursor: pointer;
+  &:hover {
+    color: red;
+  }
+}
+
+.title {
+  padding: 0;
+  margin: 0;
+}
+
+.like {
+  background-image: url(../../vendor/images/like.svg);
+  width: 15px;
+  height: 15px;
+  margin-left: 10px;
+  background-repeat: no-repeat;
+  cursor: pointer;
+}
+
+.liked {
+  background-image: url(../../vendor/images/liked.svg);
+  width: 15px;
+  height: 15px;
+  margin-left: 10px;
+  background-repeat: no-repeat;
+  cursor: pointer;
+}
+
+.box {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.description {
+  margin: 0;
+  padding: 0;
+}
