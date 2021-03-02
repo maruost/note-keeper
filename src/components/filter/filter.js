@@ -1,7 +1,7 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import s from "./filter.module.scss";
-import { alph_RU, alph_EN } from "../data/constants";
+import { alph_RU, alph_EN } from "../../data/constants";
 
 export default function Filter(props) {
   return (

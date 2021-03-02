@@ -1,0 +1,33 @@
+.welcome {
+  max-width: 1280px;
+  margin: 0 auto;
+}
+
+.wrapper {
+  max-width: 600px;
+}
+
+.title {
+  font-size: 90px;
+  font-weight: 800;
+  margin: 100px 0 0;
+}
+
+.subtitle {
+  margin: 10px 0;
+  max-width: 400px;
+  font-weight: 500;
+  padding-bottom: 50px;
+}
+
+.button {
+  width: 100%;
+  border: 2px solid black;
+  background-color: #fff;
+  cursor: pointer;
+  padding: 5px;
+  &:hover {
+    background-color: black;
+    color: white;
+  }
+}

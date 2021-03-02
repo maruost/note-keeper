@@ -1,19 +1,49 @@
-import React from "react";
+import { React, useState, useEffect } from "react";
 import Alphabet from "../alphabet/alphabet";
-import { data } from "../data/constants";
+import { dataBySections } from "../../data/constants";
 import Filter from "../filter/filter";
 import Form from "../form/form";
 import Panel from "../panel/panel";
 import Sections from "../sections/sections";
+import Popup from "../popup/popup";
+import Header from "../header/header";
+import api from "../../utils/api";
 import s from "./main.module.scss";
 
-export default function Main() {
-  const [lang, setLang] = React.useState("RU");
-  let [newData, setNewData] = React.useState([...data]);
-  const [isPanelOpened, setIsPanelOpened] = React.useState(0);
-  const [panelData, setPanelData] = React.useState({});
-  const [panelWidth, setPanelWidth] = React.useState({ width: "0px" });
-  const [note, setNote] = React.useState({});
+export default function Main(props) {
+  const [lang, setLang] = useState("RU");
+  let [newData, setNewData] = useState([...props.notes]);
+  const [isPanelOpened, setIsPanelOpened] = useState(0);
+  const [panelData, setPanelData] = useState({});
+  const [panelWidth, setPanelWidth] = useState({ width: "0px" });
+  const [note, setNote] = useState({});
+  const [isLiked, setIsLiked] = useState(false);
+  // let [notes, setNotes] = useState([]);
+
+  // rendering saved notes
+  useEffect(() => {
+    api
+      .getInitialNotes("notes")
+      .then((res) => props.handleNotes([...props.notes, res]))
+      .catch((err) => console.log(err));
+  }, []);
+
+  //adding new note by submit
+  function handleAddNote(data) {
+    const { title, section, link, description, language, letter } = data;
+    api
+      .addNewNote("notes", title, section, link, description, language, letter)
+      .then((res) => {
+        console.log(res);
+        props.handleNotes([...props.notes, res]);
+        console.log("notes:", props.notes);
+      })
+      .catch((err) => console.log(err));
+  }
+
+  function handleNoteLike(noteToLike) {
+    setIsLiked(!isLiked);
+  }
 
   function handleLang(e) {
     setLang(e.target.textContent);
@@ -21,7 +51,7 @@ export default function Main() {
 
   function filterData(word) {
     console.log(newData);
-    const filteredData = data.filter((w) => w.letter === word);
+    const filteredData = dataBySections.filter((w) => w.letter === word);
     setNewData([...newData, ...filteredData]);
     console.log(newData);
   }
@@ -67,9 +97,10 @@ export default function Main() {
         onHandlePanelClose={handlePanelClose}
         panelData={panelData}
         onHideNote={hideNote}
+        notes={props.notes}
       />
       <div className={s.box}>
-        <Form />
+        <Form handleAddNote={handleAddNote} />
         <Alphabet
           onHandleLang={handleLang}
           lang={lang}
@@ -84,7 +115,10 @@ export default function Main() {
         panelWidth={panelWidth}
         onShowNote={showNote}
         note={note}
+        onHandlePopup={props.onHandlePopup}
+        onHandleNoteLike={handleNoteLike}
       />
+      <Popup isPopupOpened={props.isPopupOpened} />
     </div>
   );
 }

@@ -1,5 +1,6 @@
 import React from "react";
 import ReactDOM from "react-dom";
+import { NavLink } from "react-router-dom";
 import s from "./header.module.scss";
 
 export default function Header() {
@@ -10,8 +11,12 @@ export default function Header() {
         <nav className={s.nav}>
           <ul className={s.links}>
             <li className={s.link}>На главную</li>
-            <li className={s.link}>Войти</li>
-            <li className={s.link}>Зарегистрироваться</li>
+            <NavLink to="/login" className={s.link}>
+              Войти
+            </NavLink>
+            <NavLink to="/registration" className={s.link}>
+              Зарегистрироваться
+            </NavLink>
           </ul>
         </nav>
       </div>

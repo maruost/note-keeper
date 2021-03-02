@@ -3,7 +3,7 @@ import ReactDOM from "react-dom";
 import s from "./section.module.scss";
 
 export default function Section(props) {
-  const data = props.literal;
+  const data = props.litera;
 
   return (
     <div className={s.section}>

@@ -1,6 +1,5 @@
 import React from "react";
 import s from "./panel.module.scss";
-import { data } from "../data/constants";
 import { cutDescription } from "../../utils/utils";
 import likeIcon from "../../vendor/images/like.svg";
 import Note from "../note/note";
@@ -9,15 +8,9 @@ export default function Panel(props) {
   const data = props.panelData;
   const note = props.note;
 
-  const [isLiked, setIsLiked] = React.useState(false);
-
-  function toggleLike() {
-    setIsLiked(!isLiked);
-  }
-
   function addVideo(link) {
     console.log(link);
-    if (!link.includes("youtube")) {
+    if (!link.includes("youtube.com/watch?v")) {
       return (
         <a className={s["full-note-link"]} href="#">
           {link}
@@ -48,7 +41,13 @@ export default function Panel(props) {
           <div className={s.notes}>
             {data.notes
               ? data.notes.map((note) => {
-                  return <Note note={note} onShowNote={props.onShowNote} />;
+                  return (
+                    <Note
+                      note={note}
+                      onShowNote={props.onShowNote}
+                      onHandleNoteLike={props.onHandleNoteLike}
+                    />
+                  );
                 })
               : 0}
           </div>
@@ -60,7 +59,9 @@ export default function Panel(props) {
           </div>
           <p className={s["full-note-description"]}>{note.description}</p>
         </div>
-        <button className={s["add-button"]}>+</button>
+        <button className={s["add-button"]} onClick={props.onHandlePopup}>
+          +
+        </button>
       </div>
     </div>
   );
